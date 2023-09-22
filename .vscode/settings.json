@@ -1,0 +1,27 @@
+{
+  "path-intellisense.mappings": {
+    "@": "D:/Users/zach.hsieh/Desktop/private/webpack-5-practice/src/assets"
+  },
+  // 存檔時自動排版
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "stylelint.validate": ["css", "scss"],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  }
+}

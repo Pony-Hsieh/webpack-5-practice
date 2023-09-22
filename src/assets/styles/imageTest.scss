@@ -1,0 +1,13 @@
+.jpg {
+  width: 300px;
+  height: 300px;
+  background: no-repeat center/contain;
+}
+
+.jpg-big {
+  background-image: url("@/images/jpg-big.jpg");
+}
+
+.jpg-small {
+  background-image: url("@/images/jpg-small.jpg");
+}

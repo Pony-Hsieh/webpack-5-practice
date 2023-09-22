@@ -1,0 +1,62 @@
+/* 測試 Stylelint */
+.test-style-lint {
+  display: block;
+  width: 5rem;
+  height: 2rem;
+  padding: 2rem 0;
+  margin: 0 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0ff;
+  text-align: center;
+  background: #f00;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #f0f;
+  }
+}
+
+.insert {
+  display: block;
+}
+
+.alter:after {
+  color: red;
+  content: "example";
+}
+
+.delete {
+  display: block;
+}
+
+/** ugly scss code with some warning
+
+.test-style-lint {
+  transition:   all       0.2s
+       ease-in-out;
+  display:   block      ;
+  text-align:  center         ;
+  background: #f00;
+  color: #0ff;
+  font-weight: bold;
+  width: 5rem;
+  padding: 2rem 0;
+  height: 2rem;
+  font-size: 1rem;
+  margin: 0 2rem;
+  &:hover {
+    color: #f0f;
+  }
+}
+
+.insert {
+  display: block
+}
+
+.alter:after {color: red; content: 'example'}
+
+.delete {
+  display: block;;
+}
+
+*/

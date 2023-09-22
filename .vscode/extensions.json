@@ -1,0 +1,10 @@
+{
+  // List of extensions which should be recommended for users of this workspace.
+  "recommendations": [
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig"
+  ]
+}

@@ -1,0 +1,63 @@
+/* 兩種配置擇一即可 */
+
+/** 皆需安裝
+ * $ npm i -D babel-loader
+ * $ npm i -D @babel/core
+ * $ npm i -D @babel/preset-env
+ * $ npm i @babel/runtime
+ * $ npm i -D @babel/plugin-transform-runtime
+ */
+
+/** 配置 1: 在 `@babel/preset-env` 裡面配置 polyfill
+ * - 須另安裝套件
+ * -- npm i core-js@3 // 不確定是否要加 -D
+ */
+/* {
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // [官方文件](https://babeljs.io/docs/babel-plugin-transform-runtime#installation)特別提到：
+        // When this plugin(@babel/plugin-transform-runtime) is enabled, the useBuiltIns option in @babel/preset-env must not(強烈禁止) be set. Otherwise, this plugin may not able to completely sandbox the environment.
+        // 所以這邊即使可以設定 useBuiltIns，好像看起來也不建議設定
+        // TODO: 待測試：不設定的話，還能夠做到按需引入嗎？
+        // "useBuiltIns": "usage",
+        "corejs": "3",
+        // 避免 babel 將 ES module 轉為 Common JS
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-transform-runtime"]
+} */
+
+/** 配置 2: 在 `@babel/plugin-transform-runtime` 中配置 polyfill
+ * - [babel 官網](https://babeljs.io/docs/babel-plugin-transform-runtime#usage)選用這種方式作為範例
+ * - 在 `@babel/plugin-transform-runtime` 中配置 polyfill
+ * - 須另安裝套件
+ * -- npm i @babel/runtime-corejs3
+ *
+ * 備註：
+ * - 配置 2 應該較 配置 1 好，因為不會全域引入 polyfill，可避免全域變數汙染
+ */
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // 避免 babel 將 ES module 轉為 Common JS
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        // The 'useBuiltIns' option has been removed.
+        // "useBuiltIns": "usage",
+        "corejs": "3"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+.card {
+  background: transparent;
+  // 測試註解是否會被移除 -> 會(sass loader 好像預設就會移除所有註解了)
+  // 測試用註解
+  // 成功
+  &.card-success {
+    color: $theme-colors-success;
+    border: 1px solid $theme-colors-success;
+    border: 1px solid blue;
+  }
+  // 測試用註解
+  /* 錯誤 */
+  &.card-error {
+    color: $theme-colors-error;
+    border: 1px solid $theme-colors-error;
+  }
+}
