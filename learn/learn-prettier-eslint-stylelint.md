@@ -7,7 +7,8 @@
 - 安裝
   - `$ npm i -D prettier`
 - 用法
-  - 在根目錄新增 prettier 設定檔(例如 `.prettierrc.js`)
+  - 在根目錄新增 prettier 設定檔(例如 `.prettierrc.js`)  
+    如果在 `package.json` 中的 "type" 設定為 "module"，則 prettier 設定檔的副檔名要設定為 `.cjs`
     ```js
     // 範例
     module.exports = {
@@ -59,8 +60,14 @@
   - 參考文章
     - [prettier 官方文件 - ignore](https://prettier.io/docs/en/ignore.html)
     - [freeCodeCamp - .gitignore 文件——如何在 Git 中忽略文件和文件夹](https://www.freecodecamp.org/chinese/news/gitignore-file-how-to-ignore-files-and-folders-in-git/)
+- 每個 prettier 的設定值，即使你的設定值與預設值相同，最好也還是寫一下，畢竟其他開發者(或者自己)有可能在 vs code 中重複設定了，如果你沒設定到的話，就有可能會出現一些 format 格式不同的狀況  
+  可以直接先在設定檔貼上所有的 prettier 預設值，然後再於後方覆寫特定的設定值
+  - 參考文章
+    - [adbutterfield/prettier.config.js](https://gist.github.com/adbutterfield/6b91625b5b07ca2c29f6322245e3e2bb)
+      > btw: it's good to assert defaults. People can configure prettier options inside their personal vscode settings, which can then create thrashing in projects that don't assert defaults.
 - 參考文章
   - [23 - Prettier - 格式化程式碼工具](https://ithelp.ithome.com.tw/articles/10279606)
+  - [Default prettier config with comments and links to prettier rules](https://gist.github.com/adbutterfield/6b91625b5b07ca2c29f6322245e3e2bb)
 
 ## eslint
 - 用途
@@ -159,6 +166,27 @@
         },
       }
       ```
+- 忽略文件
+  - 在配置文件中使用 `ignorePatterns` 告訴 ESLint 忽略特定的文件和目錄
+  - 在項目的根目錄下創建 `.eslintignore` 文件告訴 ESLint 要忽略哪些文件和目錄
+  - 除了 .eslintignore 文件中的任何模式外，ESLint 總是遵循一些隱含的忽略規則，即使通過了 --no-ignore 標志。這些隱含的規則如下：
+    1. 忽略 node_modules/
+    2. 忽略點文件（除了 .eslintrc.*），以及點文件夾和它們的內容
+  - 如果你想要使用一個不同於目前工作目錄中的 .eslintignore 的文件，你可以在命令列中使用 --ignore-path 選項來指定它
+    - 指定 `--ignore-path` 意味著任何現有的 `.eslintignore` 文件將不會被使用
+  - 優先序
+    1. `.eslintignore`
+    2. 指定替代文件(可透過 cmd 指令指定)
+    3. package.json 中的 eslintIgnore
+- cli 選項
+  - `--report-unused-disable-directives`
+    - Adds reported errors for unused eslint-disable directives  
+      為未使用的 eslint disable 指令添加報告的錯誤  
+      這個還是沒有看得很懂在幹嘛
+  - `--max-warnings`
+    - 當 warning 數超過設定的數值就報錯退出  
+      如果設為 0，就表示有任何 warning 就報錯退出
+    - [eslint waring as error](https://juejin.cn/post/6844904194017591303)
 - 參考文章
   - [eslint-config-prettier - Installation](https://github.com/prettier/eslint-config-prettier/#installation)
   - [ESLint vs code 插件 settings options](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint#settings-options)
@@ -166,7 +194,8 @@
   - [設定 Angular 專案使用 ESLint 進行更嚴格的程式碼撰寫風格檢查](https://blog.miniasp.com/post/2021/08/29/Angular-ESLint-with-so-much-details)
   - [【Eslint】vscode 設定eslint 教程](https://blog.csdn.net/qq_45677671/article/details/130808735)
     - npm init @eslint/config 會問你的問題可以在這邊看
-
+  - [eslintrc.js module is not defined](https://juejin.cn/s/eslintrc.js%20module%20is%20not%20defined)
+  - [ESLint 命令行](https://zhuanlan.zhihu.com/p/497953206)
 ## stylelint
 - 用途
   - A mighty(強大的) CSS linter that helps you avoid errors and enforce(強制實施) conventions(慣例).
@@ -174,12 +203,15 @@
   - 主要套件
     - `$ npm i -D stylelint`
   - config
+    - CSS config
+      - `$ npm i -D stylelint-config-recommended`
+        - The recommended shareable config for Stylelint.
     - SCSS config
       - 下列選項擇一即可，我目前是選用 recommended，因為下載數量比較高
-      - `$ npm i -D stylelint-config-recommended-scss`  
-        Weekly Downloads: 766,338
-      - `$ npm i -D stylelint-config-standard-scss`  
-        Weekly Downloads: 511,089
+        - `$ npm i -D stylelint-config-recommended-scss`  
+          Weekly Downloads: 766,338
+        - `$ npm i -D stylelint-config-standard-scss`  
+          Weekly Downloads: 511,089
     - 設定 css properties 的順序  
       [官方](https://github.com/hudochenkov/stylelint-order#example-configs) 提過的幾個 Example configs，其中下載數量最多的是 `stylelint-config-recess-order`
       - **stylelint-config-recess-order**
@@ -244,6 +276,17 @@
 - 關於如何排序 css properties order，stylelint [官方](https://stylelint.io/user-guide/customize/#custom-rules)給出兩種解法：
   1. 使用 extends(例如： stylelint-config-recess-order)，套用社區內已經弄好的一整套規則
   2. 使用 plugins(例如： stylelint-order)，自行排序樣式表中的規則，或者是依照特定規則排序(例如 alphabetical-order)
+- 在設定 stylelint 自動修正指令的時候，如果有選用 css properties order 的話，建議下兩次指令，因為有時候只下一次會無法正確排序  
+  例如：
+  ```json
+  {
+    "scripts": {
+      "stylelint-fix": "stylelint src/**/*.css src/**/*.scss --fix",
+      "stylelint-fix-twice": "npm run stylelint-fix && npm run stylelint-fix",
+    },
+  }
+  ```
+
 - 參考文章
   - [awesome-stylelint](https://github.com/stylelint/awesome-stylelint/#readme)
     - You'll find more shared configs and plugins of custom rules listed in Awesome Stylelint.
@@ -275,3 +318,4 @@
 - [package.json 的 scripts 同时运行多个命令](https://juejin.cn/post/7135096918857744397)
   > `&`: 指令並行順序執行(同時運行)  
   > `&&`: 指令串列順序執行(相繼運行)；只有當前一個指令執行成功，才會繼續執行後面的指令
+- [[译] 以和为贵！让 ESlint、Prettier 和 EditorConfig 互不冲突](https://cloud.tencent.com/developer/article/1840432)

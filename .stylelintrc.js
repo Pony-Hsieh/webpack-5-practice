@@ -34,6 +34,5 @@ module.exports = {
         ignore: ['after-comment'],
       },
     ],
-    // blockless-after-blockless
   },
 };
